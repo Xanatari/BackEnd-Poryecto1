@@ -1,16 +1,14 @@
 package backendportafolio.controller.implementations;
 
 import backendportafolio.controller.contracts.IUserController;
+import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.GenericResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -29,5 +27,55 @@ public class UserController implements IUserController {
                 .builder()
                      .rc("0")
                      .msg("OK").data(null).build()), HttpStatus.OK);
+    }
+
+    @Override
+    @PostMapping(value = "/newUser")
+    public ResponseEntity<Object> newUserPlataform(@RequestBody UserRequestDTO userRequestDTO) {
+            log.info(" New User Created to the plataform ");
+
+            return new ResponseEntity<>(gson.toJson(GenericResponse
+                        .builder()
+                        .rc("0")
+                        .msg("OK")
+                        .data(null)
+                    .build()),
+                    HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<Object> userEvaluateCode() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> generateUserPF() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> userHabilities() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> userTopicEvaluate() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> userInfo() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> updateUserEvaluates() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> updateTopicsEvaluate() {
+        return null;
     }
 }
