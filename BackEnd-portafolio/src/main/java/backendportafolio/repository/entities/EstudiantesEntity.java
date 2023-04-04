@@ -1,8 +1,14 @@
 package backendportafolio.repository.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Builder
 @Table(name = "estudiantes", schema = "backendDB", catalog = "")
 public class EstudiantesEntity {
     private int estudiantesId;

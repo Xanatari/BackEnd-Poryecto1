@@ -1,4 +1,7 @@
 package backendportafolio.repository.contracts;
 
-public interface IUserCredentialRepository {
+import backendportafolio.repository.entities.EstudiantesEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IUserCredentialRepository extends JpaRepository<EstudiantesEntity,Long > {
 }
