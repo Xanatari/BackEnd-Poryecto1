@@ -1,11 +1,10 @@
 package backendportafolio.repository.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.*;
+
 
 @Entity
 @Builder
@@ -18,6 +17,10 @@ public class EstudiantesEntity {
     private String rol;
     private String facultad;
     private String especialidad;
+
+    public EstudiantesEntity() {
+
+    }
 
     @Id
     @Column(name = "estudiantesId")

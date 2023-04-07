@@ -1,10 +1,6 @@
 package backendportafolio.repository.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import jakarta.persistence.*;
 @Entity
 @Table(name = "credenciales", schema = "backendDB", catalog = "")
 public class CredencialesEntity {

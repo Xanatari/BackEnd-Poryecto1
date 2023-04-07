@@ -1,6 +1,6 @@
 package backendportafolio.repository.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "observadores", schema = "backendDB", catalog = "")
