@@ -10,7 +10,7 @@ public class EspecialidadesEntity {
     private String nombre;
     private String descripcion;
 
-    @Basic
+    @Id
     @Column(name = "especialidadesId")
     public int getEspecialidadesId() {
         return especialidadesId;

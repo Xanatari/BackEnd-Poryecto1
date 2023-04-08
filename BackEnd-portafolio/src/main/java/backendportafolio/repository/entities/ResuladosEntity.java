@@ -10,7 +10,7 @@ public class ResuladosEntity {
     private String comentariosDocente;
     private String especialidad;
 
-    @Basic
+    @Id
     @Column(name = "resuladoId")
     public int getResuladoId() {
         return resuladoId;

@@ -8,7 +8,7 @@ public class CredencialesEntity {
     private String userId;
     private String credential;
 
-    @Basic
+    @Id
     @Column(name = "credenialId")
     public int getCredenialId() {
         return credenialId;

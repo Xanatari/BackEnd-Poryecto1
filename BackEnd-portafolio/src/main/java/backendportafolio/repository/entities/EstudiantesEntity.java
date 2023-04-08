@@ -18,10 +18,6 @@ public class EstudiantesEntity {
     private String facultad;
     private String especialidad;
 
-    public EstudiantesEntity() {
-
-    }
-
     @Id
     @Column(name = "estudiantesId")
     public int getEstudiantesId() {

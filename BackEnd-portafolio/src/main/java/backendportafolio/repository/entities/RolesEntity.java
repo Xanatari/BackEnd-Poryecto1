@@ -9,7 +9,7 @@ public class RolesEntity {
     private String userId;
     private String permisions;
 
-    @Basic
+    @Id
     @Column(name = "rolId")
     public int getRolId() {
         return rolId;

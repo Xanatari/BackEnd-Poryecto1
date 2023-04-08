@@ -12,7 +12,7 @@ public class CodigoEntity {
     private String especialidad;
     private String analizis;
 
-    @Basic
+    @Id
     @Column(name = "codigoId")
     public int getCodigoId() {
         return codigoId;

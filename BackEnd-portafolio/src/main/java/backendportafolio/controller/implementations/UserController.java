@@ -3,8 +3,10 @@ package backendportafolio.controller.implementations;
 import backendportafolio.controller.contracts.IUserController;
 import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.GenericResponse;
+import backendportafolio.service.contracts.IUserCredentialService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController implements IUserController {
 
     private static final Gson gson = new Gson();
+
+    @Autowired
+    IUserCredentialService iUserCredentialService;
 
     @Override
     @GetMapping(value = "/credentials")
@@ -38,7 +43,7 @@ public class UserController implements IUserController {
                         .builder()
                         .rc("0")
                         .msg("OK")
-                        .data(null)
+                        .data(iUserCredentialService.createNewUserPlataform(userRequestDTO))
                     .build()),
                     HttpStatus.OK);
 

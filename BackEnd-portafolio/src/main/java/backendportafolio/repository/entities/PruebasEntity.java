@@ -11,7 +11,7 @@ public class PruebasEntity {
     private String especialidad;
     private String complegidad;
 
-    @Basic
+    @Id
     @Column(name = "pruebasID")
     public int getPruebasId() {
         return pruebasId;
