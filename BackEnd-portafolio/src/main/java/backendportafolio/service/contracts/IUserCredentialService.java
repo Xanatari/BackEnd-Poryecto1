@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 public interface IUserCredentialService {
 
-    Object createNewUserPlataform(UserRequestDTO userRequestDTO);
+    Object createNewUserPlataform(UserRequestDTO userRequestDTO) throws Exception;
 }

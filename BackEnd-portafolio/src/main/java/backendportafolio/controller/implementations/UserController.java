@@ -42,6 +42,7 @@ public class UserController implements IUserController {
     public ResponseEntity<Object> newUserPlataform(@RequestBody UserRequestDTO userRequestDTO) {
             log.info(" New User Created to the plataform ");
 
+        try {
             return new ResponseEntity<>(gson.toJson(GenericResponse
                         .builder()
                         .rc("0")
@@ -49,6 +50,9 @@ public class UserController implements IUserController {
                         .data(iUserCredentialService.createNewUserPlataform(userRequestDTO))
                     .build()),
                     HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

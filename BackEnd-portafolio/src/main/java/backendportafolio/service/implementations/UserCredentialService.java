@@ -1,6 +1,7 @@
 package backendportafolio.service.implementations;
 
 import backendportafolio.dtos.request.UserRequestDTO;
+import backendportafolio.repository.contracts.IEstudiantesRepository;
 import backendportafolio.repository.contracts.IRolRepository;
 import backendportafolio.repository.contracts.IUserCredentialRepository;
 import backendportafolio.repository.entities.EstudiantesEntity;
@@ -17,11 +18,18 @@ public class UserCredentialService implements IUserCredentialService {
     IUserCredentialRepository iUserCredentialRepository;
 
     @Autowired
+    IEstudiantesRepository iEstudiantesRepository;
+
+    @Autowired
     IRolRepository iRolRepository;
 
     @Override
-    public Object createNewUserPlataform(UserRequestDTO userRequestDTO) {
+    public Object createNewUserPlataform(UserRequestDTO userRequestDTO) throws Exception {
         log.info("Service Layer create a new user for plataform");
+
+        if (!iEstudiantesRepository.findByEmail(userRequestDTO.getEmail()).isPresent()){
+            throw new Exception("El usuario que se quiere registrar ya se registo en la plataforma");
+        }
 
         EstudiantesEntity estudiantesEntity = EstudiantesEntity
                 .builder()
