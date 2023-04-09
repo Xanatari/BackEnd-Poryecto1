@@ -10,6 +10,7 @@ public class RolesEntity {
     private String permisions;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rolId")
     public int getRolId() {
         return rolId;

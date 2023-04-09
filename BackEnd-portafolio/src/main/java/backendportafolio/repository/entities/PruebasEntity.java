@@ -12,6 +12,7 @@ public class PruebasEntity {
     private String complegidad;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pruebasID")
     public int getPruebasId() {
         return pruebasId;

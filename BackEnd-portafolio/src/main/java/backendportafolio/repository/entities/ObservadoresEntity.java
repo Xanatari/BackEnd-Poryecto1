@@ -12,6 +12,7 @@ public class ObservadoresEntity {
     private String rol;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "observadoresId")
     public int getObservadoresId() {
         return observadoresId;

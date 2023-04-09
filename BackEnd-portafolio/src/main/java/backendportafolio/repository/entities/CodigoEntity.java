@@ -13,6 +13,7 @@ public class CodigoEntity {
     private String analizis;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigoId")
     public int getCodigoId() {
         return codigoId;

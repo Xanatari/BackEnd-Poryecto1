@@ -9,6 +9,7 @@ public class CredencialesEntity {
     private String credential;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "credenialId")
     public int getCredenialId() {
         return credenialId;

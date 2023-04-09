@@ -31,7 +31,10 @@ public class UserController implements IUserController {
         return new ResponseEntity<>(gson.toJson(GenericResponse
                 .builder()
                      .rc("0")
-                     .msg("OK").data(null).build()), HttpStatus.OK);
+                     .msg("OK")
+                     .data(null)
+                .build()),
+                HttpStatus.OK);
     }
 
     @Override

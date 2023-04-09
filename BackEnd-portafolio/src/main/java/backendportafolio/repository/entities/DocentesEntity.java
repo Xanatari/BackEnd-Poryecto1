@@ -14,6 +14,7 @@ public class DocentesEntity {
     private String especialidad;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "docentesId")
     public int getDocentesId() {
         return docentesId;

@@ -12,6 +12,7 @@ public class AdministradoresEntity {
     private String rol;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "adminId")
     public int getAdminId() {
         return adminId;
