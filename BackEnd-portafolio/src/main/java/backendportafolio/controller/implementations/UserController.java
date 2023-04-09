@@ -3,6 +3,7 @@ package backendportafolio.controller.implementations;
 import backendportafolio.controller.contracts.IUserController;
 import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.GenericResponse;
+import backendportafolio.exceptions.GenericException;
 import backendportafolio.service.contracts.IUserCredentialService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +51,12 @@ public class UserController implements IUserController {
                         .data(iUserCredentialService.createNewUserPlataform(userRequestDTO))
                     .build()),
                     HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (GenericException e) {
+            log.error("Generic exception for create a new user ");
+            return new ResponseEntity<>(gson.toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
+        }catch (Exception e ){
+            log.error("Error to register the Payer info ");
+            return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

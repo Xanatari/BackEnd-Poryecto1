@@ -1,6 +1,7 @@
 package backendportafolio.service.implementations;
 
 import backendportafolio.dtos.request.UserRequestDTO;
+import backendportafolio.exceptions.GenericException;
 import backendportafolio.repository.contracts.IEstudiantesRepository;
 import backendportafolio.repository.contracts.IRolRepository;
 import backendportafolio.repository.contracts.IUserCredentialRepository;
@@ -28,7 +29,7 @@ public class UserCredentialService implements IUserCredentialService {
         log.info("Service Layer create a new user for plataform");
 
         if (!iEstudiantesRepository.findByEmail(userRequestDTO.getEmail()).isPresent()){
-            throw new Exception("El usuario que se quiere registrar ya se registo en la plataforma");
+            throw new GenericException("El usuario que se quiere registrar ya se registo en la plataforma");
         }
 
         EstudiantesEntity estudiantesEntity = EstudiantesEntity
