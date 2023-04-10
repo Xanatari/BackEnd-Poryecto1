@@ -62,13 +62,50 @@ public class UserController implements IUserController {
     }
 
     @Override
+    @PostMapping(value = "/evaluate-code")
     public ResponseEntity<Object> userEvaluateCode() {
-        return null;
-    }
+        return null;   public ResponseEntity<Object> newUserPlataform(@RequestBody UserRequestDTO userRequestDTO) {
+            log.info(" New User Created to the plataform ");
+
+            try {
+                return new ResponseEntity<>(gson.toJson(GenericResponse
+                        .builder()
+                        .rc("0")
+                        .msg("OK")
+                        .data(iUserCredentialService.createNewUserPlataform(userRequestDTO))
+                        .build()),
+                        HttpStatus.OK);
+            } catch (GenericException e) {
+                log.error("Generic exception for create a new user ");
+                return new ResponseEntity<>(gson.toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
+            }catch (Exception e ){
+                log.error("Error to register the Payer info ");
+                return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        }
 
     @Override
     public ResponseEntity<Object> generateUserPF() {
-        return null;
+
+
+            log.info(" New User Created to the plataform ");
+
+            try {
+                return new ResponseEntity<>(gson.toJson(GenericResponse
+                        .builder()
+                        .rc("0")
+                        .msg("OK")
+                        .data(iUserCredentialService.createNewUserPlataform(userRequestDTO))
+                        .build()),
+                        HttpStatus.OK);
+            } catch (GenericException e) {
+                log.error("Generic exception for create a new user ");
+                return new ResponseEntity<>(gson.toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
+            }catch (Exception e ){
+                log.error("Error to register the Payer info ");
+                return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 
     @Override

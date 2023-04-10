@@ -25,7 +25,7 @@ public class UserCredentialService implements IUserCredentialService {
     IRolRepository iRolRepository;
 
     @Override
-    public Object createNewUserPlataform(UserRequestDTO userRequestDTO) throws Exception {
+    public Object createNewUserPlataform(UserRequestDTO userRequestDTO) throws GenericException {
         log.info("Service Layer create a new user for plataform");
 
         if (!iEstudiantesRepository.findByEmail(userRequestDTO.getEmail()).isPresent()){
