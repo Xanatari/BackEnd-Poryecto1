@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface IUserController {
 
-    ResponseEntity <Object> getUserCredentials();
+    ResponseEntity <Object> getUserCredentials(String email, String password);
 
     //Post Methods
     ResponseEntity <Object> newUserPlataform(UserRequestDTO userRequestDTO);

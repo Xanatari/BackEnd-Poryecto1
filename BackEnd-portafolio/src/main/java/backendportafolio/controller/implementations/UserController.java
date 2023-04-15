@@ -6,6 +6,7 @@ import backendportafolio.dtos.responses.GenericResponse;
 import backendportafolio.exceptions.GenericException;
 import backendportafolio.service.contracts.IUserCredentialService;
 import com.google.gson.Gson;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,25 +18,31 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@AllArgsConstructor
 public class UserController implements IUserController {
 
     private static final Gson gson = new Gson();
 
-    @Autowired
     IUserCredentialService iUserCredentialService;
 
     @Override
     @GetMapping(value = "/credentials")
-    public ResponseEntity<Object> getUserCredentials() {
-        log.info("Get User Credentials for loggin ");
-
-        return new ResponseEntity<>(gson.toJson(GenericResponse
-                .builder()
-                     .rc("0")
-                     .msg("OK")
-                     .data(null)
-                .build()),
-                HttpStatus.OK);
+    public ResponseEntity<Object> getUserCredentials(String email, String password  ) {
+        try {
+            return new ResponseEntity<>(gson.toJson(GenericResponse
+                    .builder()
+                    .rc("0")
+                    .msg("OK")
+                    .data(iUserCredentialService.credentialsUser(email , password))
+                    .build()),
+                    HttpStatus.OK);
+        } catch (GenericException e) {
+            log.error("Generic exception for loggin user ");
+            return new ResponseEntity<>(gson.toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
+        }   catch (Exception e ){
+            log.error("Error to register the Payer info ");
+            return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -64,7 +71,7 @@ public class UserController implements IUserController {
     @Override
     @PostMapping(value = "/evaluate-code")
     public ResponseEntity<Object> userEvaluateCode(UserRequestDTO userRequestDTO) {
-            log.info(" New User Created to the plataform ");
+            log.info(" Evaluate code for the user ");
 
             try {
                 return new ResponseEntity<>(gson.toJson(GenericResponse

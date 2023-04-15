@@ -10,6 +10,7 @@ import lombok.Data;
 @Builder
 @Table(name = "estudiantes", schema = "backendDB", catalog = "")
 public class EstudiantesEntity {
+
     private int estudiantesId;
     private String nameLastName;
     private String email;
