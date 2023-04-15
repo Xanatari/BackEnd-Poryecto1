@@ -63,8 +63,7 @@ public class UserController implements IUserController {
 
     @Override
     @PostMapping(value = "/evaluate-code")
-    public ResponseEntity<Object> userEvaluateCode() {
-        return null;   public ResponseEntity<Object> newUserPlataform(@RequestBody UserRequestDTO userRequestDTO) {
+    public ResponseEntity<Object> userEvaluateCode(UserRequestDTO userRequestDTO) {
             log.info(" New User Created to the plataform ");
 
             try {
@@ -79,14 +78,17 @@ public class UserController implements IUserController {
                 log.error("Generic exception for create a new user ");
                 return new ResponseEntity<>(gson.toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
             }catch (Exception e ){
-                log.error("Error to register the Payer info ");
+                log.error("Error to register the\n" +
+                        "\n" +
+                        "\n Payer info ");
                 return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
         }
 
     @Override
-    public ResponseEntity<Object> generateUserPF() {
+    @PostMapping(value = "/generate-user-pdf")
+    public ResponseEntity<Object> generateUserPF(@RequestBody UserRequestDTO userRequestDTO) {
 
 
             log.info(" New User Created to the plataform ");

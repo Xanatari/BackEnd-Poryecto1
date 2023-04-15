@@ -10,9 +10,9 @@ public interface IUserController {
     //Post Methods
     ResponseEntity <Object> newUserPlataform(UserRequestDTO userRequestDTO);
 
-    ResponseEntity <Object> userEvaluateCode();
+    ResponseEntity <Object> userEvaluateCode(UserRequestDTO userRequestDTO);
 
-    ResponseEntity <Object> generateUserPF();
+    ResponseEntity <Object> generateUserPF(UserRequestDTO userRequestDTO);
 
     //Get meThods
     ResponseEntity <Object> userHabilities();
