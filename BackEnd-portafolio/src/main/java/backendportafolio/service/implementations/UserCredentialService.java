@@ -34,18 +34,18 @@ public class UserCredentialService implements IUserCredentialService {
     public Object createNewUserPlataform(UserRequestDTO userRequestDTO) throws GenericException {
         log.info("Service Layer create a new user for plataform");
 
-        if (!iEstudiantesRepository.findByEmail(userRequestDTO.getEmail()).isPresent()){
-            throw new GenericException("El usuario que se quiere registrar ya se registo en la plataforma");
-        }
+       // if (!iEstudiantesRepository.findByEmail(userRequestDTO.getEmail()).isPresent()){
+         //   throw new GenericException("El usuario que se quiere registrar ya se registo en la plataforma");
+        //}
 
-        EstudiantesEntity estudiantesEntity = EstudiantesEntity
-                .builder()
-                    .nameLastName(userRequestDTO.getName() + userRequestDTO.getLastName())
-                    .email(userRequestDTO.getEmail())
-                    .rol(userRequestDTO.getRol())
-                    .facultad(userRequestDTO.getFacultad())
-                    .especialidad(userRequestDTO.getEspecialidad())
-                .build();
+        var estudiantesEntity = new EstudiantesEntity();
+           estudiantesEntity.setNameLastName(userRequestDTO.getName() + userRequestDTO.getLastName());
+           estudiantesEntity.setEmail(userRequestDTO.getEmail());
+           estudiantesEntity.setRol(userRequestDTO.getRol());
+           estudiantesEntity.setFacultad(userRequestDTO.getFacultad());
+           estudiantesEntity.setEspecialidad(userRequestDTO.getEspecialidad());
+           estudiantesEntity.setIdCredenciales(Base64.getEncoder().encodeToString(userRequestDTO.getPassword().getBytes()));
+
 
         iUserCredentialRepository.save(estudiantesEntity);
 

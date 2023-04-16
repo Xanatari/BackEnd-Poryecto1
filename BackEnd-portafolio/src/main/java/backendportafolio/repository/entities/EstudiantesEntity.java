@@ -1,16 +1,15 @@
 package backendportafolio.repository.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-
 
 
 @Entity
-@Builder
 @Table(name = "estudiantes", schema = "backendDB", catalog = "")
 public class EstudiantesEntity {
 
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Column(name = "estudiantesId")
     private int estudiantesId;
     private String nameLastName;
     private String email;
@@ -19,9 +18,7 @@ public class EstudiantesEntity {
     private String facultad;
     private String especialidad;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "estudiantesId")
+
     public int getEstudiantesId() {
         return estudiantesId;
     }
