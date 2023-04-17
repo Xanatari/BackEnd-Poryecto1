@@ -34,9 +34,9 @@ public class UserCredentialService implements IUserCredentialService {
     public Object createNewUserPlataform(UserRequestDTO userRequestDTO) throws GenericException {
         log.info("Service Layer create a new user for plataform");
 
-       // if (!iEstudiantesRepository.findByEmail(userRequestDTO.getEmail()).isPresent()){
-         //   throw new GenericException("El usuario que se quiere registrar ya se registo en la plataforma");
-        //}
+        if (!iEstudiantesRepository.findByEmail(userRequestDTO.getEmail()).isEmpty()){
+           throw new GenericException("El usuario que se quiere registrar ya se registo en la plataforma");
+        }
 
         var estudiantesEntity = new EstudiantesEntity();
            estudiantesEntity.setNameLastName(userRequestDTO.getName() + userRequestDTO.getLastName());

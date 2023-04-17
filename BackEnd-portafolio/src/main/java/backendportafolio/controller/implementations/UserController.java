@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController implements IUserController {
 
-    private static final Gson gson = new Gson();
+         Gson gson = new Gson();
 
     IUserCredentialService iUserCredentialService;
 
@@ -29,7 +29,7 @@ public class UserController implements IUserController {
     @GetMapping(value = "/credentials")
     public ResponseEntity<Object> getUserCredentials(String email, String password  ) {
         try {
-            return new ResponseEntity<>(gson.toJson(GenericResponse
+            return new ResponseEntity<>(new Gson().toJson(GenericResponse
                     .builder()
                     .rc("0")
                     .msg("OK")
@@ -38,10 +38,10 @@ public class UserController implements IUserController {
                     HttpStatus.OK);
         } catch (GenericException e) {
             log.error("Generic exception for loggin user ");
-            return new ResponseEntity<>(gson.toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Gson().toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
         }   catch (Exception e ){
             log.error("Error to register the Payer info ");
-            return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Gson().toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -60,7 +60,7 @@ public class UserController implements IUserController {
                     HttpStatus.OK);
         } catch (GenericException e) {
             log.error("Generic exception for create a new user ");
-            return new ResponseEntity<>(gson.toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(gson.toJson(e), HttpStatus.BAD_REQUEST);
         }catch (Exception e ){
             log.error("Error to register the estudent info ");
             return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
