@@ -1,6 +1,7 @@
 package backendportafolio.controller.implementations;
 
 import backendportafolio.controller.contracts.IUserController;
+import backendportafolio.dtos.request.CredentialsRequestDTO;
 import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.GenericResponse;
 import backendportafolio.exceptions.GenericException;
@@ -26,14 +27,14 @@ public class UserController implements IUserController {
     IUserCredentialService iUserCredentialService;
 
     @Override
-    @GetMapping(value = "/credentials")
-    public ResponseEntity<Object> getUserCredentials(String email, String password  ) {
+    @PostMapping(value = "/credentials")
+    public ResponseEntity<Object> getUserCredentials(@RequestBody CredentialsRequestDTO credentialsRequestDTO) {
         try {
             return new ResponseEntity<>(new Gson().toJson(GenericResponse
                     .builder()
                     .rc("0")
                     .msg("OK")
-                    .data(iUserCredentialService.credentialsUser(email , password))
+                    .data(iUserCredentialService.credentialsUser(credentialsRequestDTO))
                     .build()),
                     HttpStatus.OK);
         } catch (GenericException e) {
@@ -46,9 +47,10 @@ public class UserController implements IUserController {
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/newUser")
     public ResponseEntity<Object> newUserPlataform(@RequestBody UserRequestDTO userRequestDTO) {
-            log.info(" New User Created to the plataform ");
+            log.info(" New User Created to the plataform {}", userRequestDTO.getEmail());
 
         try {
             return new ResponseEntity<>(gson.toJson(GenericResponse
@@ -59,9 +61,9 @@ public class UserController implements IUserController {
                     .build()),
                     HttpStatus.OK);
         } catch (GenericException e) {
-            log.error("Generic exception for create a new user ");
-            return new ResponseEntity<>(gson.toJson(e), HttpStatus.BAD_REQUEST);
-        }catch (Exception e ){
+            log.error("Generic exception for loggin user ");
+            return new ResponseEntity<>(new Gson().toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
+        } catch (Exception e ){
             log.error("Error to register the estudent info ");
             return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
         }

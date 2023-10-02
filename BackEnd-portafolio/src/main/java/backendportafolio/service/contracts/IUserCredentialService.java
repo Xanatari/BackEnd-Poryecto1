@@ -1,10 +1,10 @@
 package backendportafolio.service.contracts;
 
+import backendportafolio.dtos.request.CredentialsRequestDTO;
 import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.CredentialsResponse;
 import backendportafolio.exceptions.GenericException;
-import org.apache.logging.log4j.spi.ObjectThreadContextMap;
-import org.springframework.stereotype.Service;
+
 
 public interface IUserCredentialService {
 
@@ -12,5 +12,5 @@ public interface IUserCredentialService {
 
     Object evaluatedUserCode(String code) throws GenericException;
 
-    CredentialsResponse credentialsUser(String email, String password) throws GenericException;
+    CredentialsResponse credentialsUser(CredentialsRequestDTO credentialsRequestDTO) throws GenericException;
 }

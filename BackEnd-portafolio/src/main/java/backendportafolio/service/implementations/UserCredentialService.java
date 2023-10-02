@@ -1,5 +1,6 @@
 package backendportafolio.service.implementations;
 
+import backendportafolio.dtos.request.CredentialsRequestDTO;
 import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.CredentialsResponse;
 import backendportafolio.exceptions.GenericException;
@@ -60,12 +61,12 @@ public class UserCredentialService implements IUserCredentialService {
     }
 
     @Override
-    public CredentialsResponse credentialsUser(String email, String password) throws GenericException {
+    public CredentialsResponse credentialsUser(CredentialsRequestDTO credentialsRequestDTO) throws GenericException {
 
-        if (!iEstudiantesRepository.findByEmail(email).isPresent()){
+        if (!iEstudiantesRepository.findByEmail(credentialsRequestDTO.getUserName()).isPresent()){
             throw new GenericException("El usuario que se quiere ingresar no se encuantra registrado en la plataforma");
         }
-        Optional<EstudiantesEntity> estudiantesEntity = iEstudiantesRepository.findByEmail(email);
+        Optional<EstudiantesEntity> estudiantesEntity = iEstudiantesRepository.findByEmail(credentialsRequestDTO.getUserName());
 
        CredentialsResponse credentialsResponse = CredentialsResponse.builder()
                 .userId(String.valueOf(estudiantesEntity.get().getEstudiantesId()))

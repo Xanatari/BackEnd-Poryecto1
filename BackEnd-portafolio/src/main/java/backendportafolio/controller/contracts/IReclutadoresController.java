@@ -1,12 +1,12 @@
 package backendportafolio.controller.contracts;
 
-import backendportafolio.dtos.request.CredentialsRequestDTO;
 import backendportafolio.dtos.request.UserRequestDTO;
 import org.springframework.http.ResponseEntity;
 
-public interface IUserController {
+public interface IReclutadoresController {
 
-    ResponseEntity <Object> getUserCredentials(CredentialsRequestDTO credentialsRequestDTO);
+
+    ResponseEntity<Object> getUserCredentials(String email, String password);
 
     //Post Methods
     ResponseEntity <Object> newUserPlataform(UserRequestDTO userRequestDTO);
@@ -21,12 +21,4 @@ public interface IUserController {
     ResponseEntity <Object> userTopicEvaluate();
 
     ResponseEntity <Object> userInfo();
-
-
-    //Put Methods
-
-    ResponseEntity <Object> updateUserEvaluates();
-
-    ResponseEntity <Object> updateTopicsEvaluate();
-
 }
