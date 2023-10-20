@@ -18,6 +18,7 @@ public class EstudiantesEntity {
     private String facultad;
     private String especialidad;
 
+    private Integer pruebaId;
 
     public int getEstudiantesId() {
         return estudiantesId;
@@ -85,6 +86,16 @@ public class EstudiantesEntity {
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+
+    @Basic
+    @Column(name = "pruebaId")
+    public Integer getPruebaId() {
+        return pruebaId;
+    }
+
+    public void setPruebaId(int pruebaId) {
+        this.pruebaId = pruebaId;
     }
 
     @Override

@@ -11,6 +11,8 @@ public class PruebasEntity {
     private String especialidad;
     private String complegidad;
 
+    private Integer resultadoId;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pruebasID")
@@ -60,6 +62,17 @@ public class PruebasEntity {
 
     public void setComplegidad(String complegidad) {
         this.complegidad = complegidad;
+    }
+
+    @Basic
+    @Column(name = "resultadoId")
+    public Integer getResultadoId() {
+        return resultadoId;
+    }
+
+
+    public void setResultadoId(Integer resultadoId) {
+        this.resultadoId = resultadoId;
     }
 
     @Override

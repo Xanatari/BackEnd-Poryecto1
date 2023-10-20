@@ -120,8 +120,22 @@ public class UserController implements IUserController {
     }
 
     @Override
+    @GetMapping("/habilities")
     public ResponseEntity<Object> userHabilities() {
-        return null;
+        log.info("Get habilities to evaluate for studen");
+
+        try {
+            return new ResponseEntity<>(gson.toJson(GenericResponse
+                    .builder()
+                    .rc("0")
+                    .msg("OK")
+                    .data(null)
+                    .build()),
+                    HttpStatus.OK);
+        } catch (Exception e ){
+            log.error("Error to register the Payer info ");
+            return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -130,6 +144,7 @@ public class UserController implements IUserController {
     }
 
     @Override
+    @GetMapping("/user-info")
     public ResponseEntity<Object> userInfo() {
         return null;
     }
