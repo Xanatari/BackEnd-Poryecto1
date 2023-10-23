@@ -27,6 +27,7 @@ public class UserController implements IUserController {
     IUserCredentialService iUserCredentialService;
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/credentials")
     public ResponseEntity<Object> getUserCredentials(@RequestBody CredentialsRequestDTO credentialsRequestDTO) {
         try {
@@ -71,6 +72,7 @@ public class UserController implements IUserController {
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/evaluate-code")
     public ResponseEntity<Object> userEvaluateCode(UserRequestDTO userRequestDTO) {
             log.info(" Evaluate code for the user ");
@@ -96,6 +98,7 @@ public class UserController implements IUserController {
         }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/generate-user-pdf")
     public ResponseEntity<Object> generateUserPF(@RequestBody UserRequestDTO userRequestDTO) {
 
@@ -120,6 +123,7 @@ public class UserController implements IUserController {
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/habilities")
     public ResponseEntity<Object> userHabilities() {
         log.info("Get habilities to evaluate for studen");
@@ -139,12 +143,14 @@ public class UserController implements IUserController {
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/user-topics-to-evaluate")
     public ResponseEntity<Object> userTopicEvaluate() {
         return null;
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/user-info")
     public ResponseEntity<Object> userInfo() {
         return null;
