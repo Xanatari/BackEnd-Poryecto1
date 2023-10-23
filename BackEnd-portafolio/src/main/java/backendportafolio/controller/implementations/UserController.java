@@ -120,7 +120,7 @@ public class UserController implements IUserController {
     }
 
     @Override
-    @GetMapping("/habilities")
+    @GetMapping(value = "/habilities")
     public ResponseEntity<Object> userHabilities() {
         log.info("Get habilities to evaluate for studen");
 
@@ -139,12 +139,13 @@ public class UserController implements IUserController {
     }
 
     @Override
+    @GetMapping(value = "/user-topics-to-evaluate")
     public ResponseEntity<Object> userTopicEvaluate() {
         return null;
     }
 
     @Override
-    @GetMapping("/user-info")
+    @GetMapping(value = "/user-info")
     public ResponseEntity<Object> userInfo() {
         return null;
     }
