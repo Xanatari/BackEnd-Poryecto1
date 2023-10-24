@@ -74,8 +74,6 @@ public class UserCredentialService implements IUserCredentialService {
                 .rol(estudiantesEntity.get().getRol())
                 .build();
 
-
-
         return credentialsResponse;
     }
 

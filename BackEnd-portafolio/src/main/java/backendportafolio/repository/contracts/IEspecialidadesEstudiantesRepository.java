@@ -4,10 +4,11 @@ import backendportafolio.repository.entities.EspecialidadesEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface IEspecialidadesEstudiantes extends JpaRepository <EspecialidadesEntity, Integer> {
+public interface IEspecialidadesEstudiantesRepository extends JpaRepository <EspecialidadesEntity, Integer> {
 
-    Optional findAllByTipo(String tipo);
+    Optional<List<EspecialidadesEntity>> findAllByTipo(String tipo);
 }
