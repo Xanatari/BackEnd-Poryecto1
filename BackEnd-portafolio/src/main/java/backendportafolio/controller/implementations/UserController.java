@@ -151,9 +151,22 @@ public class UserController implements IUserController {
 
     @Override
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping(value = "/user-info")
-    public ResponseEntity<Object> userInfo() {
-        return null;
+    @GetMapping(value = "/user-info/{userId}")
+    public ResponseEntity<Object> userInfo(@PathVariable int userId) {
+        log.info("Get Info for student");
+
+        try {
+            return new ResponseEntity<>(gson.toJson(GenericResponse
+                    .builder()
+                    .rc("0")
+                    .msg("OK")
+                    .data(null)
+                    .build()),
+                    HttpStatus.OK);
+        } catch (Exception e ){
+            log.error("Error to register the Payer info ");
+            return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

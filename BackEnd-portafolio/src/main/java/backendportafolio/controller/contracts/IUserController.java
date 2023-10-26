@@ -3,6 +3,7 @@ package backendportafolio.controller.contracts;
 import backendportafolio.dtos.request.CredentialsRequestDTO;
 import backendportafolio.dtos.request.UserRequestDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface IUserController {
 
@@ -20,7 +21,7 @@ public interface IUserController {
 
     ResponseEntity <Object> userTopicEvaluate();
 
-    ResponseEntity <Object> userInfo();
+    ResponseEntity <Object> userInfo( int userId);
 
 
     //Put Methods
