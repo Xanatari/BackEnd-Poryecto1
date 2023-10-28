@@ -2,7 +2,6 @@ package backendportafolio.repository.entities;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "estudiantes", schema = "backendDB", catalog = "")
 public class EstudiantesEntity {
@@ -17,8 +16,6 @@ public class EstudiantesEntity {
     private String rol;
     private String facultad;
     private String especialidad;
-
-    private Integer pruebaId;
 
     public int getEstudiantesId() {
         return estudiantesId;
@@ -88,15 +85,6 @@ public class EstudiantesEntity {
         this.especialidad = especialidad;
     }
 
-    @Basic
-    @Column(name = "pruebaId")
-    public Integer getPruebaId() {
-        return pruebaId;
-    }
-
-    public void setPruebaId(int pruebaId) {
-        this.pruebaId = pruebaId;
-    }
 
     @Override
     public boolean equals(Object o) {

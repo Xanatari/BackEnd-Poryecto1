@@ -10,8 +10,8 @@ public class PruebasEntity {
     private String contenido;
     private String especialidad;
     private String complegidad;
-
     private Integer resultadoId;
+    private Integer estudianteId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,9 +70,18 @@ public class PruebasEntity {
         return resultadoId;
     }
 
-
     public void setResultadoId(Integer resultadoId) {
         this.resultadoId = resultadoId;
+    }
+
+    @Basic
+    @Column(name = "estudianteId")
+    public Integer getEstudianteId() {
+        return estudianteId;
+    }
+
+    public void setEstudianteId(Integer estudianteId) {
+        this.estudianteId = estudianteId;
     }
 
     @Override

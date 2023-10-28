@@ -9,6 +9,7 @@ public class ResuladosEntity {
     private String resultado;
     private String comentariosDocente;
     private String especialidad;
+    private int pruebasId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +60,16 @@ public class ResuladosEntity {
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+
+    @Basic
+    @Column(name = "pruebasId")
+    public int getPruebasId() {
+        return pruebasId;
+    }
+
+    public void setPruebasId(int pruebasId) {
+        this.pruebasId = pruebasId;
     }
 
     @Override
