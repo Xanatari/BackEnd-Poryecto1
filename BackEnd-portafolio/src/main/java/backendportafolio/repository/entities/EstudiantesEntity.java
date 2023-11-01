@@ -2,6 +2,8 @@ package backendportafolio.repository.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "estudiantes", schema = "backendDB", catalog = "")
 public class EstudiantesEntity {
@@ -16,6 +18,7 @@ public class EstudiantesEntity {
     private String rol;
     private String facultad;
     private String especialidad;
+    private Set<PruebasEntity> pruebasId;
 
     public int getEstudiantesId() {
         return estudiantesId;
@@ -85,6 +88,15 @@ public class EstudiantesEntity {
         this.especialidad = especialidad;
     }
 
+
+    @OneToMany(mappedBy="estudiantesId")
+    public Set<PruebasEntity> getPruebasId() {
+        return pruebasId;
+    }
+
+    public void setPruebasId(Set<PruebasEntity> pruebasId) {
+        this.pruebasId = pruebasId;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -2,6 +2,8 @@ package backendportafolio.repository.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "pruebas", schema = "backendDB", catalog = "")
 public class PruebasEntity {
@@ -11,7 +13,8 @@ public class PruebasEntity {
     private String especialidad;
     private String complegidad;
     private Integer resultadoId;
-    private Integer estudianteId;
+    private ResuladosEntity resuladosEntitySet;
+    private EstudiantesEntity estudiantesId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,14 +77,23 @@ public class PruebasEntity {
         this.resultadoId = resultadoId;
     }
 
-    @Basic
-    @Column(name = "estudianteId")
-    public Integer getEstudianteId() {
-        return estudianteId;
+    @OneToOne(mappedBy="pruebasId")
+    public ResuladosEntity getResuladosEntitySet() {
+        return resuladosEntitySet;
     }
 
-    public void setEstudianteId(Integer estudianteId) {
-        this.estudianteId = estudianteId;
+    public void setResuladosEntitySet(ResuladosEntity resuladosEntitySet) {
+        this.resuladosEntitySet = resuladosEntitySet;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="estudiantesId", nullable=false)
+    public EstudiantesEntity getEstudiantesId() {
+        return estudiantesId;
+    }
+
+    public void setEstudiantesId(EstudiantesEntity estudiantesId) {
+        this.estudiantesId = estudiantesId;
     }
 
     @Override

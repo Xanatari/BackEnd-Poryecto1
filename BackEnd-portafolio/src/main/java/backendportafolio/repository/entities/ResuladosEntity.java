@@ -9,7 +9,7 @@ public class ResuladosEntity {
     private String resultado;
     private String comentariosDocente;
     private String especialidad;
-    private int pruebasId;
+    private PruebasEntity pruebasId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,13 +62,13 @@ public class ResuladosEntity {
         this.especialidad = especialidad;
     }
 
-    @Basic
-    @Column(name = "pruebasId")
-    public int getPruebasId() {
+    @OneToOne
+    @JoinColumn(name="pruebasId", nullable=false)
+    public PruebasEntity getPruebasId() {
         return pruebasId;
     }
 
-    public void setPruebasId(int pruebasId) {
+    public void setPruebasId(PruebasEntity pruebasId) {
         this.pruebasId = pruebasId;
     }
 
