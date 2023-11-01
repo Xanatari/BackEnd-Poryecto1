@@ -8,11 +8,9 @@ import backendportafolio.repository.contracts.ICodigoRepository;
 import backendportafolio.repository.contracts.IEstudiantesRepository;
 import backendportafolio.repository.contracts.IRolRepository;
 import backendportafolio.repository.contracts.IUserCredentialRepository;
-import backendportafolio.repository.entities.EstudiantesEntity;
 import backendportafolio.service.contracts.IUserCredentialService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;

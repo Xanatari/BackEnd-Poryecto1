@@ -6,13 +6,13 @@ import jakarta.persistence.*;
 @Table(name = "especialidades", schema = "backendDB", catalog = "")
 public class EspecialidadesEntity {
     private int especialidadesId;
-    private String tipo;
-    private String nombre;
     private String descripcion;
+    private String nombre;
+    private String tipo;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "especialidadesId")
+    @Column(name = "especialidades_id")
     public int getEspecialidadesId() {
         return especialidadesId;
     }
@@ -22,13 +22,13 @@ public class EspecialidadesEntity {
     }
 
     @Basic
-    @Column(name = "tipo")
-    public String getTipo() {
-        return tipo;
+    @Column(name = "descripcion")
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Basic
@@ -42,13 +42,13 @@ public class EspecialidadesEntity {
     }
 
     @Basic
-    @Column(name = "descripcion")
-    public String getDescripcion() {
-        return descripcion;
+    @Column(name = "tipo")
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
@@ -59,9 +59,9 @@ public class EspecialidadesEntity {
         EspecialidadesEntity that = (EspecialidadesEntity) o;
 
         if (especialidadesId != that.especialidadesId) return false;
-        if (tipo != null ? !tipo.equals(that.tipo) : that.tipo != null) return false;
-        if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
         if (descripcion != null ? !descripcion.equals(that.descripcion) : that.descripcion != null) return false;
+        if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
+        if (tipo != null ? !tipo.equals(that.tipo) : that.tipo != null) return false;
 
         return true;
     }
@@ -69,9 +69,9 @@ public class EspecialidadesEntity {
     @Override
     public int hashCode() {
         int result = especialidadesId;
-        result = 31 * result + (tipo != null ? tipo.hashCode() : 0);
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
         result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
+        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
+        result = 31 * result + (tipo != null ? tipo.hashCode() : 0);
         return result;
     }
 }

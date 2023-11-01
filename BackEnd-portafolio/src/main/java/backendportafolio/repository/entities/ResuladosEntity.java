@@ -1,19 +1,20 @@
 package backendportafolio.repository.entities;
 
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "resulados", schema = "backendDB", catalog = "")
 public class ResuladosEntity {
     private int resuladoId;
     private String codigoId;
-    private String resultado;
     private String comentariosDocente;
     private String especialidad;
-    private PruebasEntity pruebasId;
+    private String resultado;
+    private int pruebasId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "resuladoId")
+    @Column(name = "resulado_id")
     public int getResuladoId() {
         return resuladoId;
     }
@@ -23,7 +24,7 @@ public class ResuladosEntity {
     }
 
     @Basic
-    @Column(name = "codigoId")
+    @Column(name = "codigo_id")
     public String getCodigoId() {
         return codigoId;
     }
@@ -33,17 +34,7 @@ public class ResuladosEntity {
     }
 
     @Basic
-    @Column(name = "resultado")
-    public String getResultado() {
-        return resultado;
-    }
-
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
-    }
-
-    @Basic
-    @Column(name = "comentariosDocente")
+    @Column(name = "comentarios_docente")
     public String getComentariosDocente() {
         return comentariosDocente;
     }
@@ -62,14 +53,14 @@ public class ResuladosEntity {
         this.especialidad = especialidad;
     }
 
-    @OneToOne
-    @JoinColumn(name="pruebasId", nullable=false)
-    public PruebasEntity getPruebasId() {
-        return pruebasId;
+    @Basic
+    @Column(name = "resultado")
+    public String getResultado() {
+        return resultado;
     }
 
-    public void setPruebasId(PruebasEntity pruebasId) {
-        this.pruebasId = pruebasId;
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
     }
 
     @Override
@@ -81,10 +72,10 @@ public class ResuladosEntity {
 
         if (resuladoId != that.resuladoId) return false;
         if (codigoId != null ? !codigoId.equals(that.codigoId) : that.codigoId != null) return false;
-        if (resultado != null ? !resultado.equals(that.resultado) : that.resultado != null) return false;
         if (comentariosDocente != null ? !comentariosDocente.equals(that.comentariosDocente) : that.comentariosDocente != null)
             return false;
         if (especialidad != null ? !especialidad.equals(that.especialidad) : that.especialidad != null) return false;
+        if (resultado != null ? !resultado.equals(that.resultado) : that.resultado != null) return false;
 
         return true;
     }
@@ -93,9 +84,19 @@ public class ResuladosEntity {
     public int hashCode() {
         int result = resuladoId;
         result = 31 * result + (codigoId != null ? codigoId.hashCode() : 0);
-        result = 31 * result + (resultado != null ? resultado.hashCode() : 0);
         result = 31 * result + (comentariosDocente != null ? comentariosDocente.hashCode() : 0);
         result = 31 * result + (especialidad != null ? especialidad.hashCode() : 0);
+        result = 31 * result + (resultado != null ? resultado.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "pruebasId")
+    public int getPruebasId() {
+        return pruebasId;
+    }
+
+    public void setPruebasId(int pruebasId) {
+        this.pruebasId = pruebasId;
     }
 }

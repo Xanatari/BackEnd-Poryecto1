@@ -6,21 +6,31 @@ import jakarta.persistence.*;
 @Table(name = "codigo", schema = "backendDB", catalog = "")
 public class CodigoEntity {
     private int codigoId;
+    private String analizis;
     private String codigo;
-    private String resultado;
     private String comentariosDocente;
     private String especialidad;
-    private String analizis;
+    private String resultado;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigoId")
+    @Column(name = "codigo_id")
     public int getCodigoId() {
         return codigoId;
     }
 
     public void setCodigoId(int codigoId) {
         this.codigoId = codigoId;
+    }
+
+    @Basic
+    @Column(name = "analizis")
+    public String getAnalizis() {
+        return analizis;
+    }
+
+    public void setAnalizis(String analizis) {
+        this.analizis = analizis;
     }
 
     @Basic
@@ -34,17 +44,7 @@ public class CodigoEntity {
     }
 
     @Basic
-    @Column(name = "resultado")
-    public String getResultado() {
-        return resultado;
-    }
-
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
-    }
-
-    @Basic
-    @Column(name = "comentariosDocente")
+    @Column(name = "comentarios_docente")
     public String getComentariosDocente() {
         return comentariosDocente;
     }
@@ -64,13 +64,13 @@ public class CodigoEntity {
     }
 
     @Basic
-    @Column(name = "analizis")
-    public String getAnalizis() {
-        return analizis;
+    @Column(name = "resultado")
+    public String getResultado() {
+        return resultado;
     }
 
-    public void setAnalizis(String analizis) {
-        this.analizis = analizis;
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
     }
 
     @Override
@@ -81,12 +81,12 @@ public class CodigoEntity {
         CodigoEntity that = (CodigoEntity) o;
 
         if (codigoId != that.codigoId) return false;
+        if (analizis != null ? !analizis.equals(that.analizis) : that.analizis != null) return false;
         if (codigo != null ? !codigo.equals(that.codigo) : that.codigo != null) return false;
-        if (resultado != null ? !resultado.equals(that.resultado) : that.resultado != null) return false;
         if (comentariosDocente != null ? !comentariosDocente.equals(that.comentariosDocente) : that.comentariosDocente != null)
             return false;
         if (especialidad != null ? !especialidad.equals(that.especialidad) : that.especialidad != null) return false;
-        if (analizis != null ? !analizis.equals(that.analizis) : that.analizis != null) return false;
+        if (resultado != null ? !resultado.equals(that.resultado) : that.resultado != null) return false;
 
         return true;
     }
@@ -94,11 +94,11 @@ public class CodigoEntity {
     @Override
     public int hashCode() {
         int result = codigoId;
+        result = 31 * result + (analizis != null ? analizis.hashCode() : 0);
         result = 31 * result + (codigo != null ? codigo.hashCode() : 0);
-        result = 31 * result + (resultado != null ? resultado.hashCode() : 0);
         result = 31 * result + (comentariosDocente != null ? comentariosDocente.hashCode() : 0);
         result = 31 * result + (especialidad != null ? especialidad.hashCode() : 0);
-        result = 31 * result + (analizis != null ? analizis.hashCode() : 0);
+        result = 31 * result + (resultado != null ? resultado.hashCode() : 0);
         return result;
     }
 }

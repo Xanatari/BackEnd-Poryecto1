@@ -2,59 +2,25 @@ package backendportafolio.repository.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
 @Table(name = "pruebas", schema = "backendDB", catalog = "")
 public class PruebasEntity {
-    private int pruebasId;
-    private String descripcionPrueba;
-    private String contenido;
-    private String especialidad;
+    private int pruebasid;
     private String complegidad;
-    private Integer resultadoId;
-    private ResuladosEntity resuladosEntitySet;
-    private EstudiantesEntity estudiantesId;
+    private String contenido;
+    private String descripcionPrueba;
+    private String especialidad;
+    private Integer estudianteId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pruebasID")
-    public int getPruebasId() {
-        return pruebasId;
+    @Column(name = "pruebasid")
+    public int getPruebasid() {
+        return pruebasid;
     }
 
-    public void setPruebasId(int pruebasId) {
-        this.pruebasId = pruebasId;
-    }
-
-    @Basic
-    @Column(name = "descripcionPrueba")
-    public String getDescripcionPrueba() {
-        return descripcionPrueba;
-    }
-
-    public void setDescripcionPrueba(String descripcionPrueba) {
-        this.descripcionPrueba = descripcionPrueba;
-    }
-
-    @Basic
-    @Column(name = "contenido")
-    public String getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
-
-    @Basic
-    @Column(name = "especialidad")
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+    public void setPruebasid(int pruebasid) {
+        this.pruebasid = pruebasid;
     }
 
     @Basic
@@ -68,32 +34,33 @@ public class PruebasEntity {
     }
 
     @Basic
-    @Column(name = "resultadoId")
-    public Integer getResultadoId() {
-        return resultadoId;
+    @Column(name = "contenido")
+    public String getContenido() {
+        return contenido;
     }
 
-    public void setResultadoId(Integer resultadoId) {
-        this.resultadoId = resultadoId;
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
     }
 
-    @OneToOne(mappedBy="pruebasId")
-    public ResuladosEntity getResuladosEntitySet() {
-        return resuladosEntitySet;
+    @Basic
+    @Column(name = "descripcion_prueba")
+    public String getDescripcionPrueba() {
+        return descripcionPrueba;
     }
 
-    public void setResuladosEntitySet(ResuladosEntity resuladosEntitySet) {
-        this.resuladosEntitySet = resuladosEntitySet;
+    public void setDescripcionPrueba(String descripcionPrueba) {
+        this.descripcionPrueba = descripcionPrueba;
     }
 
-    @ManyToOne
-    @JoinColumn(name="estudiantesId", nullable=false)
-    public EstudiantesEntity getEstudiantesId() {
-        return estudiantesId;
+    @Basic
+    @Column(name = "especialidad")
+    public String getEspecialidad() {
+        return especialidad;
     }
 
-    public void setEstudiantesId(EstudiantesEntity estudiantesId) {
-        this.estudiantesId = estudiantesId;
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 
     @Override
@@ -103,23 +70,33 @@ public class PruebasEntity {
 
         PruebasEntity that = (PruebasEntity) o;
 
-        if (pruebasId != that.pruebasId) return false;
+        if (pruebasid != that.pruebasid) return false;
+        if (complegidad != null ? !complegidad.equals(that.complegidad) : that.complegidad != null) return false;
+        if (contenido != null ? !contenido.equals(that.contenido) : that.contenido != null) return false;
         if (descripcionPrueba != null ? !descripcionPrueba.equals(that.descripcionPrueba) : that.descripcionPrueba != null)
             return false;
-        if (contenido != null ? !contenido.equals(that.contenido) : that.contenido != null) return false;
         if (especialidad != null ? !especialidad.equals(that.especialidad) : that.especialidad != null) return false;
-        if (complegidad != null ? !complegidad.equals(that.complegidad) : that.complegidad != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = pruebasId;
-        result = 31 * result + (descripcionPrueba != null ? descripcionPrueba.hashCode() : 0);
-        result = 31 * result + (contenido != null ? contenido.hashCode() : 0);
-        result = 31 * result + (especialidad != null ? especialidad.hashCode() : 0);
+        int result = pruebasid;
         result = 31 * result + (complegidad != null ? complegidad.hashCode() : 0);
+        result = 31 * result + (contenido != null ? contenido.hashCode() : 0);
+        result = 31 * result + (descripcionPrueba != null ? descripcionPrueba.hashCode() : 0);
+        result = 31 * result + (especialidad != null ? especialidad.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "estudianteId")
+    public Integer getEstudianteId() {
+        return estudianteId;
+    }
+
+    public void setEstudianteId(Integer estudianteId) {
+        this.estudianteId = estudianteId;
     }
 }
