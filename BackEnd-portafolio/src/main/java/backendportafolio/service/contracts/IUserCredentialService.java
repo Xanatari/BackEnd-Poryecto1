@@ -3,6 +3,7 @@ package backendportafolio.service.contracts;
 import backendportafolio.dtos.request.CredentialsRequestDTO;
 import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.CredentialsResponse;
+import backendportafolio.dtos.responses.UserInfoResponse;
 import backendportafolio.exceptions.GenericException;
 
 
@@ -13,4 +14,6 @@ public interface IUserCredentialService {
     Object evaluatedUserCode(String code) throws GenericException;
 
     CredentialsResponse credentialsUser(CredentialsRequestDTO credentialsRequestDTO) throws GenericException;
+
+    UserInfoResponse userInfo(int userId) throws GenericException;
 }

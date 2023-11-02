@@ -2,6 +2,8 @@ package backendportafolio.repository.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "estudiantes", schema = "backendDB", catalog = "")
 public class EstudiantesEntity {
@@ -12,6 +14,9 @@ public class EstudiantesEntity {
     private String idCredenciales;
     private String nameLastName;
     private String rol;
+
+    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL)
+    private List<PruebasEntity> pruebas;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

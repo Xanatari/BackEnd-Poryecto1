@@ -160,7 +160,7 @@ public class UserController implements IUserController {
                     .builder()
                     .rc("0")
                     .msg("OK")
-                    .data(null)
+                    .data(iUserCredentialService.userInfo(userId))
                     .build()),
                     HttpStatus.OK);
         } catch (Exception e ){

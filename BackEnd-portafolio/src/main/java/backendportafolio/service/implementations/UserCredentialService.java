@@ -3,11 +3,13 @@ package backendportafolio.service.implementations;
 import backendportafolio.dtos.request.CredentialsRequestDTO;
 import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.CredentialsResponse;
+import backendportafolio.dtos.responses.UserInfoResponse;
 import backendportafolio.exceptions.GenericException;
 import backendportafolio.repository.contracts.ICodigoRepository;
 import backendportafolio.repository.contracts.IEstudiantesRepository;
 import backendportafolio.repository.contracts.IRolRepository;
 import backendportafolio.repository.contracts.IUserCredentialRepository;
+import backendportafolio.repository.entities.EstudiantesEntity;
 import backendportafolio.service.contracts.IUserCredentialService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +27,6 @@ public class UserCredentialService implements IUserCredentialService {
     IEstudiantesRepository iEstudiantesRepository;
     IRolRepository iRolRepository;
     ICodigoRepository iCodigoRepository;
-
-
-
 
     @Override
     public Object createNewUserPlataform(UserRequestDTO userRequestDTO) throws GenericException {
@@ -61,7 +60,7 @@ public class UserCredentialService implements IUserCredentialService {
     @Override
     public CredentialsResponse credentialsUser(CredentialsRequestDTO credentialsRequestDTO) throws GenericException {
 
-        if (!iEstudiantesRepository.findByEmail(credentialsRequestDTO.getUserName()).isPresent()){
+        if (iEstudiantesRepository.findByEmail(credentialsRequestDTO.getUserName()).isEmpty()){
             throw new GenericException("El usuario que se quiere ingresar no se encuantra registrado en la plataforma");
         }
         Optional<EstudiantesEntity> estudiantesEntity = iEstudiantesRepository.findByEmail(credentialsRequestDTO.getUserName());
@@ -73,6 +72,21 @@ public class UserCredentialService implements IUserCredentialService {
                 .build();
 
         return credentialsResponse;
+    }
+
+    @Override
+    public UserInfoResponse userInfo(int userId) throws GenericException {
+
+        if (iEstudiantesRepository.findById(userId).isEmpty()) throw new GenericException("El usuario que se quiere consultarr no se encuantra registrado en la plataforma");
+
+        Optional<EstudiantesEntity> estudiantesEntity = iEstudiantesRepository.findById(userId);
+
+        return UserInfoResponse
+                .builder()
+                .nameLastName(estudiantesEntity.get().getNameLastName())
+                .facultad(estudiantesEntity.get().getFacultad())
+                .espacialidad(estudiantesEntity.get().getEspecialidad())
+                .build();
     }
 
     private String generateToken(String sesionToken){

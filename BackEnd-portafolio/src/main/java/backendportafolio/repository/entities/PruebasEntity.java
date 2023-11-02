@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "pruebas", schema = "backendDB", catalog = "")
 public class PruebasEntity {
+
     private int pruebasid;
     private String complegidad;
     private String contenido;

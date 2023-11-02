@@ -11,4 +11,5 @@ public class UserInfoResponse {
     private String facultad;
     private String espacialidad;
 
+
 }
