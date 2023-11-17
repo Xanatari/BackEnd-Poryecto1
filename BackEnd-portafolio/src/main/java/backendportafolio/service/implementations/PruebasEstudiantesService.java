@@ -6,6 +6,7 @@ import backendportafolio.config.OpenIA.ChatWithOpenIA;
 import backendportafolio.dtos.request.EvaluacionSolucionDTO;
 import backendportafolio.dtos.request.PruebasRequest;
 import backendportafolio.dtos.responses.PruebasResponse;
+import backendportafolio.dtos.responses.ResultEvaluacionResponse;
 import backendportafolio.exceptions.GenericException;
 import backendportafolio.repository.contracts.IEstudiantesRepository;
 import backendportafolio.repository.contracts.IPruebasRepository;
@@ -56,7 +57,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
     }
 
     @Override
-    public PruebasResponse setEvaluacionSolucion(int estudianteId, EvaluacionSolucionDTO evaluacionCodigoDTO) throws GenericException {
+    public ResultEvaluacionResponse setEvaluacionSolucion(int estudianteId, EvaluacionSolucionDTO evaluacionCodigoDTO) throws GenericException {
 
         log.info("Try to get estudent info for id {}", estudianteId );
         var infoEstudiantes = iEstudiantesRepository.findById(estudianteId);
@@ -67,30 +68,48 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
 
         var prueba = iPruebasRepository.findById(evaluacionCodigoDTO.getPruebaId()).orElseThrow(() ->  new GenericException("Estudiante no encontrado "));
 
-        prueba.getContenido();
+        String response =  chatWithOpenIA.chatWithGTP(getPromtToEvaluateSolution( prueba.getContenido(), evaluacionCodigoDTO.getCodigo()));
 
         ResuladosEntity resuladosEntity = new ResuladosEntity();
 
+        resuladosEntity.setPruebasId(evaluacionCodigoDTO.getPruebaId());
+        resuladosEntity.setCodigoId(evaluacionCodigoDTO.getCodigo());
+        resuladosEntity.setResultado(response);
 
-        return null;
+
+
+        return ResultEvaluacionResponse.builder()
+                .resultadoEvaluacion(response)
+                .build();
     }
 
     private String getPromtGTP(String habilidad , String tecnologiaLenguajes ){
-        String promtToGTP = "Prudes generarme una pregunta o reto de programacion que incluya los siguientes temas al repecto, principalmente una combinacion entre ${TECHANDHABILITIES}$ y ${HABILIDADES}$ , que prueba tecnica puedo ponerle a un estudiante de ingenieria de sistemas";
+        String promptToGTP = "Prudes generarme una pregunta o reto de programacion que incluya los siguientes temas al respecto, principalmente una combinacion entre ${TECHANDHABILITIES}$ y ${HABILIDADES}$ , que prueba técnica puedo ponerle a un estudiante de ingeniería de sistemas";
 
-        promtToGTP.replace("${TECHANDLENGUAJES}$",tecnologiaLenguajes );
-        promtToGTP.replace("${HABILIDADES}$", habilidad);
+        promptToGTP = promptToGTP.replace("${TECHANDHABILITIES}$", tecnologiaLenguajes)
+                                 .replace("${HABILIDADES}$", habilidad);
 
-        return  promtToGTP;
+        return promptToGTP;
+
 
     }
 
     private String resume(String habilidad , String tecnologiaLenguajes ) {
         String resume = "Prueba tecnica sencilla entre ${TECHANDHABILITIES}$ y ${HABILIDADES}$";
-        resume.replace("${TECHANDLENGUAJES}$",tecnologiaLenguajes );
-        resume.replace("${HABILIDADES}$", habilidad);
 
-        return  resume;
+        resume = resume.replace("${TECHANDHABILITIES}$", tecnologiaLenguajes)
+                       .replace("${HABILIDADES}$", habilidad);
+
+        return resume;
+
+
+    }
+
+    private String getPromtToEvaluateSolution(String pregunta , String solucion ){
+        String promptToGTP = "Esta es la pregunta que me formulaste " + pregunta+ ", ahora esta es la siguiente solucion a esa pregunta" +
+             solucion + ", me puedes decir tu opinion al respecto de la solucion que plateo ? ";
+
+        return promptToGTP;
 
 
     }

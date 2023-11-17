@@ -52,6 +52,20 @@ public class PruebasController implements IPruebasController {
     @PostMapping(value = "/prueba/{estudiantesId}/codigo")
     public ResponseEntity<Object> setEvaluacionResultado(@PathVariable int estudiantesId, @RequestBody EvaluacionSolucionDTO evaluacionCodigoDTO) {
         log.info(" Evaluando Solucion  para el estudiante ID {}", estudiantesId);
-        return null;
+        try {
+            return new ResponseEntity<>(gson.toJson(GenericResponse
+                    .builder()
+                    .rc("0")
+                    .msg("OK")
+                    .data(iPruebasEstudiantesService.setEvaluacionSolucion(estudiantesId, evaluacionCodigoDTO))
+                    .build()),
+                    HttpStatus.OK);
+        } catch (GenericException e) {
+            log.error("Generic exception for loggin user ");
+            return new ResponseEntity<>(new Gson().toJson(new GenericException(e.getMessage())), HttpStatus.BAD_REQUEST);
+        } catch (Exception e ){
+            log.error("Error to Generate prueba the estudent info ", e);
+            return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
