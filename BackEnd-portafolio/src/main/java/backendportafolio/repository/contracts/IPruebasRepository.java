@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IPruebasRepository extends JpaRepository<PruebasEntity, Long> {
+public interface IPruebasRepository extends JpaRepository<PruebasEntity, Integer> {
 
     PruebasEntity getPruebasEntityByEstudianteId(int estudianteId);
 }

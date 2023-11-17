@@ -1,6 +1,7 @@
 package backendportafolio.controller.implementations;
 
 import backendportafolio.controller.contracts.IPruebasController;
+import backendportafolio.dtos.request.EvaluacionSolucionDTO;
 import backendportafolio.dtos.request.PruebasRequest;
 import backendportafolio.dtos.responses.GenericResponse;
 import backendportafolio.exceptions.GenericException;
@@ -45,5 +46,12 @@ public class PruebasController implements IPruebasController {
             log.error("Error to Generate prueba the estudent info ", e);
             return new ResponseEntity<>(gson.toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    @PostMapping(value = "/prueba/{estudiantesId}/codigo")
+    public ResponseEntity<Object> setEvaluacionResultado(@PathVariable int estudiantesId, @RequestBody EvaluacionSolucionDTO evaluacionCodigoDTO) {
+        log.info(" Evaluando Solucion  para el estudiante ID {}", estudiantesId);
+        return null;
     }
 }

@@ -3,12 +3,15 @@ package backendportafolio.service.implementations;
 
 import backendportafolio.config.OpenIA.ChatGPTRequest;
 import backendportafolio.config.OpenIA.ChatWithOpenIA;
+import backendportafolio.dtos.request.EvaluacionSolucionDTO;
 import backendportafolio.dtos.request.PruebasRequest;
 import backendportafolio.dtos.responses.PruebasResponse;
 import backendportafolio.exceptions.GenericException;
 import backendportafolio.repository.contracts.IEstudiantesRepository;
 import backendportafolio.repository.contracts.IPruebasRepository;
+import backendportafolio.repository.contracts.IResultadosRepository;
 import backendportafolio.repository.entities.PruebasEntity;
+import backendportafolio.repository.entities.ResuladosEntity;
 import backendportafolio.service.contracts.IPruebasEstudiantesService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
     IPruebasRepository iPruebasRepository;
     IEstudiantesRepository iEstudiantesRepository;
     ChatWithOpenIA chatWithOpenIA;
+    IResultadosRepository iResultadosRepository;
 
     @Override
     public PruebasResponse getPruebasEstudiante(int estudianteId, PruebasRequest pruebasRequest) throws GenericException {
@@ -49,6 +53,26 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
         return PruebasResponse.builder()
                 .pruebaTecnica(response)
                 .build();
+    }
+
+    @Override
+    public PruebasResponse setEvaluacionSolucion(int estudianteId, EvaluacionSolucionDTO evaluacionCodigoDTO) throws GenericException {
+
+        log.info("Try to get estudent info for id {}", estudianteId );
+        var infoEstudiantes = iEstudiantesRepository.findById(estudianteId);
+
+        if (infoEstudiantes.isEmpty()){
+            throw  new GenericException("Estudiante no encontrado ");
+        }
+
+        var prueba = iPruebasRepository.findById(evaluacionCodigoDTO.getPruebaId()).orElseThrow(() ->  new GenericException("Estudiante no encontrado "));
+
+        prueba.getContenido();
+
+        ResuladosEntity resuladosEntity = new ResuladosEntity();
+
+
+        return null;
     }
 
     private String getPromtGTP(String habilidad , String tecnologiaLenguajes ){
