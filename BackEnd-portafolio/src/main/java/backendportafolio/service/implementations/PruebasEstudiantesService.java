@@ -31,11 +31,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
     @Override
     public PruebasResponse getPruebasEstudiante(int estudianteId, PruebasRequest pruebasRequest) throws GenericException {
         log.info("Try to get estudent info for id {}", estudianteId );
-        var infoEstudiantes = iEstudiantesRepository.findById(estudianteId);
-
-        if (infoEstudiantes.isEmpty()){
-            throw  new GenericException("Estudiante no encontrado ");
-        }
+       iEstudiantesRepository.findById(estudianteId).orElseThrow(()->new GenericException("Estudiante no encontrado "));
 
        String response =  chatWithOpenIA.chatWithGTP(getPromtGTP(pruebasRequest.getHabilidades(), pruebasRequest.getTecnologiasLenguajes()));
 
@@ -60,11 +56,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
     public ResultEvaluacionResponse setEvaluacionSolucion(int estudianteId, EvaluacionSolucionDTO evaluacionCodigoDTO) throws GenericException {
 
         log.info("Try to get estudent info for id {}", estudianteId );
-        var infoEstudiantes = iEstudiantesRepository.findById(estudianteId);
-
-        if (infoEstudiantes.isEmpty()){
-            throw  new GenericException("Estudiante no encontrado ");
-        }
+        iEstudiantesRepository.findById(estudianteId).orElseThrow(()->new GenericException("Estudiante no encontrado "));
 
         var prueba = iPruebasRepository.findById(evaluacionCodigoDTO.getPruebaId()).orElseThrow(() ->  new GenericException("Estudiante no encontrado "));
 
