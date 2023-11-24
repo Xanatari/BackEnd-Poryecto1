@@ -10,10 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/especialidades", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,6 +23,7 @@ public class EspecialidadesController implements IEspecialidadesController {
     IUserInfoService iUserInfoService;
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/{tipo}")
     public ResponseEntity<Object> getEspecialidades(@PathVariable String tipo) {
         try {
@@ -46,6 +44,7 @@ public class EspecialidadesController implements IEspecialidadesController {
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/estudent-info/{estudianteId}")
     public ResponseEntity<Object> getUserInfo(@PathVariable int estudianteId) {
         try {
