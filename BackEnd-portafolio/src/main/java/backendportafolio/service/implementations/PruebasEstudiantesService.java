@@ -58,7 +58,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
         log.info("Try to get estudent info for id {}", estudianteId );
         iEstudiantesRepository.findById(estudianteId).orElseThrow(()->new GenericException("Estudiante no encontrado "));
 
-        var prueba = iPruebasRepository.findById(evaluacionCodigoDTO.getPruebaId()).orElseThrow(() ->  new GenericException("Estudiante no encontrado "));
+        var prueba = iPruebasRepository.findById((long) evaluacionCodigoDTO.getPruebaId()).orElseThrow(() ->  new GenericException("Estudiante no encontrado "));
 
         String response =  chatWithOpenIA.chatWithGTP(getPromtToEvaluateSolution( prueba.getContenido(), evaluacionCodigoDTO.getCodigo()));
 

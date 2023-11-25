@@ -23,9 +23,9 @@ public class ResultadosService implements IResultadosService {
     @Override
     public List<ResultadosResposne> getResultadosByEstudiante(int estudianteId) {
 
-        var pruebasEntity = iPruebasRepository.getPruebasEntityByEstudianteId(estudianteId);
+        var pruebasEntity = iPruebasRepository.getByEstudianteId(estudianteId);
 
-        var resultadosEntity = iResultadosRepository.getAllByPruebasId(pruebasEntity.getPruebasid());
+        var resultadosEntity = iResultadosRepository.getAllByPruebasId(pruebasEntity.get(0).getPruebasid());
 
         List<ResultadosResposne> resultadosResposnes = new ArrayList<>();
 
