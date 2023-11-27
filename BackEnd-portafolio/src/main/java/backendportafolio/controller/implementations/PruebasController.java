@@ -26,8 +26,10 @@ public class PruebasController implements IPruebasController {
     IPruebasEstudiantesService iPruebasEstudiantesService;
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/prueba/{estudiantesId}")
-    public ResponseEntity<Object> getPruebaEstudiante(@PathVariable int estudiantesId, @RequestBody  PruebasRequest pruebasRequest) {
+    public ResponseEntity<Object> getPruebaEstudiante(@PathVariable int estudiantesId, @RequestParam("habilitie") String habilitie,
+                                                      @RequestParam("tech") String tech ) {
 
         log.info(" Generando nueva prueba para el estudiante ID {}", estudiantesId);
 
@@ -36,7 +38,7 @@ public class PruebasController implements IPruebasController {
                     .builder()
                     .rc("0")
                     .msg("OK")
-                    .data(iPruebasEstudiantesService.getPruebasEstudiante(estudiantesId, pruebasRequest))
+                    .data(iPruebasEstudiantesService.getPruebasEstudiante(estudiantesId, habilitie, tech))
                     .build()),
                     HttpStatus.OK);
         } catch (GenericException e) {

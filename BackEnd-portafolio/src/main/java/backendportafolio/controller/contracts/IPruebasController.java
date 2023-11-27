@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface IPruebasController {
 
-    ResponseEntity<Object> getPruebaEstudiante(int estudiantesId, PruebasRequest pruebasRequest);
+    ResponseEntity<Object> getPruebaEstudiante(int estudiantesId, String habilitie, String tech);
 
     ResponseEntity<Object> setEvaluacionResultado(int estudiantesId, EvaluacionSolucionDTO evaluacionCodigoDTO);
 }

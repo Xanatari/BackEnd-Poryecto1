@@ -29,20 +29,20 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
     IResultadosRepository iResultadosRepository;
 
     @Override
-    public PruebasResponse getPruebasEstudiante(int estudianteId, PruebasRequest pruebasRequest) throws GenericException {
+    public PruebasResponse getPruebasEstudiante(int estudianteId, String habilitie, String tech) throws GenericException {
         log.info("Try to get estudent info for id {}", estudianteId );
        iEstudiantesRepository.findById(estudianteId).orElseThrow(()->new GenericException("Estudiante no encontrado "));
 
-       String response =  chatWithOpenIA.chatWithGTP(getPromtGTP(pruebasRequest.getHabilidades(), pruebasRequest.getTecnologiasLenguajes()));
+       String response =  chatWithOpenIA.chatWithGTP(getPromtGTP(habilitie, tech));
 
-       String resume = resume(pruebasRequest.getHabilidades(), pruebasRequest.getTecnologiasLenguajes()) ;
+       String resume = resume(habilitie, tech) ;
 
        PruebasEntity pruebasEntity = new PruebasEntity();
        pruebasEntity.setEstudianteId(estudianteId);
        pruebasEntity.setContenido(response);
        pruebasEntity.setDescripcionPrueba(resume);
-       pruebasEntity.setComplegidad(pruebasRequest.getHabilidades());
-       pruebasEntity.setEspecialidad(pruebasRequest.getTecnologiasLenguajes());
+       pruebasEntity.setComplegidad(habilitie);
+       pruebasEntity.setEspecialidad(tech);
 
 
        iPruebasRepository.save(pruebasEntity);

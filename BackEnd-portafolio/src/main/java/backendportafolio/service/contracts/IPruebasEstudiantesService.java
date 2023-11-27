@@ -8,7 +8,7 @@ import backendportafolio.exceptions.GenericException;
 
 public interface IPruebasEstudiantesService {
 
-    PruebasResponse getPruebasEstudiante(int estudianteId, PruebasRequest pruebasRequest) throws GenericException;
+    PruebasResponse getPruebasEstudiante(int estudianteId, String habilitie, String tech) throws GenericException;
 
     ResultEvaluacionResponse setEvaluacionSolucion(int estudianteId, EvaluacionSolucionDTO evaluacionCodigoDTO) throws GenericException;
 }
