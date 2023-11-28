@@ -51,6 +51,7 @@ public class PruebasController implements IPruebasController {
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/prueba/{estudiantesId}/codigo")
     public ResponseEntity<Object> setEvaluacionResultado(@PathVariable int estudiantesId, @RequestBody EvaluacionSolucionDTO evaluacionCodigoDTO) {
         log.info(" Evaluando Solucion  para el estudiante ID {}", estudiantesId);

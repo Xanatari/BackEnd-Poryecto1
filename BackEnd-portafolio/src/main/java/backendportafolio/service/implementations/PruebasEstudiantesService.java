@@ -67,8 +67,10 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
         resuladosEntity.setPruebasId(evaluacionCodigoDTO.getPruebaId());
         resuladosEntity.setCodigoId(evaluacionCodigoDTO.getCodigo());
         resuladosEntity.setResultado(response);
+        resuladosEntity.setComentariosDocente("");
+        resuladosEntity.setEspecialidad("");
 
-
+        iResultadosRepository.save(resuladosEntity);
 
         return ResultEvaluacionResponse.builder()
                 .resultadoEvaluacion(response)
@@ -98,8 +100,8 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
     }
 
     private String getPromtToEvaluateSolution(String pregunta , String solucion ){
-        String promptToGTP = "Esta es la pregunta que me formulaste " + pregunta+ ", ahora esta es la siguiente solucion a esa pregunta" +
-             solucion + ", me puedes decir tu opinion al respecto de la solucion que plateo ? ";
+        String promptToGTP = "Esta es la pregunta que me formulaste " + pregunta+ ", ahora esta es la siguiente solucion a esa pregunta que me hiciste" +"'"
+            + solucion +  "'"+ ", que opinas de la solucion al problema que me planteaste?, puedes decirme el porcentaje de efectividad de la respuesta y que tal es para el mundo real ";
 
         return promptToGTP;
 
