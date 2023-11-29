@@ -45,10 +45,11 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
        pruebasEntity.setEspecialidad(tech);
 
 
-       iPruebasRepository.save(pruebasEntity);
+      var pruebaEstudiante =  iPruebasRepository.save(pruebasEntity);
 
         return PruebasResponse.builder()
                 .pruebaTecnica(response)
+                .pruebaId(pruebaEstudiante.getEstudianteId())
                 .build();
     }
 

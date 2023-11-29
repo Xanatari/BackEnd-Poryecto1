@@ -8,4 +8,5 @@ import lombok.EqualsAndHashCode;
 public class PruebasResponse {
 
     private String pruebaTecnica;
+    private int pruebaId;
 }
