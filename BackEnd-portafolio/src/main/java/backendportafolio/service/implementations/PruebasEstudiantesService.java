@@ -49,7 +49,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
 
         return PruebasResponse.builder()
                 .pruebaTecnica(response)
-                .pruebaId(pruebaEstudiante.getEstudianteId())
+                .pruebaId(pruebaEstudiante.getPruebasid())
                 .build();
     }
 
