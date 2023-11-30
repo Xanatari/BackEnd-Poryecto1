@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class EvaluacionSolucionDTO {
 
     private String codigo;
-    private int pruebaId;
+    private int prueba;
 
 }

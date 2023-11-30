@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,6 +31,7 @@ public class UserController implements IUserController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/credentials")
     public ResponseEntity<Object> getUserCredentials(@RequestBody CredentialsRequestDTO credentialsRequestDTO) {
+
         try {
             return new ResponseEntity<>(new Gson().toJson(GenericResponse
                     .builder()

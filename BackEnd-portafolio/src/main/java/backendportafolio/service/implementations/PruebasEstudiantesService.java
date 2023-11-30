@@ -18,6 +18,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -59,13 +61,13 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
         log.info("Try to get estudent info for id {}", estudianteId );
         iEstudiantesRepository.findById(estudianteId).orElseThrow(()->new GenericException("Estudiante no encontrado "));
 
-        var prueba = iPruebasRepository.findById((long) evaluacionCodigoDTO.getPruebaId()).orElseThrow(() ->  new GenericException("Estudiante no encontrado "));
+        var prueba = iPruebasRepository.findById((long) evaluacionCodigoDTO.getPrueba()).orElseThrow(() ->  new GenericException("Estudiante no encontrado "));
 
         String response =  chatWithOpenIA.chatWithGTP(getPromtToEvaluateSolution( prueba.getContenido(), evaluacionCodigoDTO.getCodigo()));
 
         ResuladosEntity resuladosEntity = new ResuladosEntity();
 
-        resuladosEntity.setPruebasId(evaluacionCodigoDTO.getPruebaId());
+        resuladosEntity.setPruebasId(evaluacionCodigoDTO.getPrueba());
         resuladosEntity.setCodigoId(evaluacionCodigoDTO.getCodigo());
         resuladosEntity.setResultado(response);
         resuladosEntity.setComentariosDocente("");
