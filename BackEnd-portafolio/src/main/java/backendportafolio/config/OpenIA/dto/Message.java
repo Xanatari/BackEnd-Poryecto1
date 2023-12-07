@@ -1,4 +1,4 @@
-package backendportafolio.config.OpenIA;
+package backendportafolio.config.OpenIA.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

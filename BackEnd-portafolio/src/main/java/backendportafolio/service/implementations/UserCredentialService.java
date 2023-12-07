@@ -5,6 +5,7 @@ import backendportafolio.dtos.request.UserRequestDTO;
 import backendportafolio.dtos.responses.CredentialsResponse;
 import backendportafolio.dtos.responses.UserInfoResponse;
 import backendportafolio.exceptions.GenericException;
+import backendportafolio.integrations.S3DocumentManage;
 import backendportafolio.repository.contracts.ICodigoRepository;
 import backendportafolio.repository.contracts.IEstudiantesRepository;
 import backendportafolio.repository.contracts.IRolRepository;
@@ -27,6 +28,7 @@ public class UserCredentialService implements IUserCredentialService {
     IEstudiantesRepository iEstudiantesRepository;
     IRolRepository iRolRepository;
     ICodigoRepository iCodigoRepository;
+    S3DocumentManage s3DocumentManage;
 
     @Override
     public Object createNewUserPlataform(UserRequestDTO userRequestDTO) throws GenericException {

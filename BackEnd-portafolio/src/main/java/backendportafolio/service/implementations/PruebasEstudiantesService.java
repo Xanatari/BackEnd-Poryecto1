@@ -1,10 +1,8 @@
 package backendportafolio.service.implementations;
 
 
-import backendportafolio.config.OpenIA.ChatGPTRequest;
-import backendportafolio.config.OpenIA.ChatWithOpenIA;
+import backendportafolio.integrations.ChatWithOpenIA;
 import backendportafolio.dtos.request.EvaluacionSolucionDTO;
-import backendportafolio.dtos.request.PruebasRequest;
 import backendportafolio.dtos.responses.PruebasResponse;
 import backendportafolio.dtos.responses.ResultEvaluacionResponse;
 import backendportafolio.exceptions.GenericException;
@@ -17,8 +15,6 @@ import backendportafolio.service.contracts.IPruebasEstudiantesService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Slf4j
 @Service
