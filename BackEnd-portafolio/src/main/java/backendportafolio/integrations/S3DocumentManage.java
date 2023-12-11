@@ -22,12 +22,12 @@ public class S3DocumentManage {
         this.s3Client = s3Client;
     }
 
-    public void uploadFile(MultipartFile file, String bucketName) throws IOException {
+    public void uploadFile(MultipartFile file, String bucketName, String folderDestiny) throws IOException {
         try {
             log.info("Insert a new file to S3");
             s3Client.putObject(PutObjectRequest.builder()
                     .bucket(bucketName)
-                    .key(file.getOriginalFilename())
+                    .key(folderDestiny+file.getOriginalFilename())
                     .build(), RequestBody.fromBytes(file.getBytes()));
 
             log.info("Finish add a new file to S3 bucket : {}", bucketName);
@@ -36,4 +36,6 @@ public class S3DocumentManage {
 
         }
     }
+
+    
 }

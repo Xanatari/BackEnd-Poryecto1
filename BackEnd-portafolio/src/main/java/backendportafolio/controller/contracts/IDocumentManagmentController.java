@@ -6,5 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface IDocumentManagmentController {
 
-    ResponseEntity<Object> setImageProfile(int estudiantesId, MultipartFile multipartFile);
+    ResponseEntity<Object> setImageProfile(int userId, MultipartFile multipartFile);
 }

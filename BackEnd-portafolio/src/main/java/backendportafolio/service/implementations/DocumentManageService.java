@@ -19,6 +19,6 @@ public class DocumentManageService implements IDocumentManageService {
 
     @Override
     public void uploadProfileEstudentImage(MultipartFile multipartFile, int userId) throws IOException {
-        s3DocumentManage.uploadFile(multipartFile, "profile-image/");
+        s3DocumentManage.uploadFile(multipartFile, "tesis-seria-s3", "profile-image/");
     }
 }
