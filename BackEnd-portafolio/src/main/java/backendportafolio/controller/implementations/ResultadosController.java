@@ -38,4 +38,22 @@ public class ResultadosController implements IResultadosController {
             return new ResponseEntity<>(new Gson().toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(value = "/resultados/{userId}/resume")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @Override
+    public ResponseEntity<Object> getResumePruebasAndResultados(@PathVariable int userId) {
+        try {
+            return new ResponseEntity<>(new Gson().toJson(GenericResponse
+                    .builder()
+                    .rc("0")
+                    .msg("OK")
+                    .data(iResultadosService.getResumeResultados(userId))
+                    .build()),
+                    HttpStatus.OK);
+        } catch (Exception e ){
+            log.error("Error to register the Payer info ");
+            return new ResponseEntity<>(new Gson().toJson(new GenericException("Have error plis try again")), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

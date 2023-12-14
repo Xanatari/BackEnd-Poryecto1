@@ -4,6 +4,7 @@ import backendportafolio.dtos.responses.ResultadosResposne;
 import backendportafolio.dtos.responses.ResumenResultadosResponse;
 import backendportafolio.repository.contracts.IPruebasRepository;
 import backendportafolio.repository.contracts.IResultadosRepository;
+import backendportafolio.repository.entities.PruebasEntity;
 import backendportafolio.service.contracts.IResultadosService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,20 +42,22 @@ public class ResultadosService implements IResultadosService {
 
     @Override
     public List<ResumenResultadosResponse> getResumeResultados(int estudianteId) {
-        var pruebasEntity = iPruebasRepository.getByEstudianteId(estudianteId);
-        var resultadosEntity = iResultadosRepository.getAllByPruebasId(pruebasEntity.get(0).getPruebasid());
+        List<PruebasEntity> pruebasEntityList = iPruebasRepository.getByEstudianteId(estudianteId);
 
-        List<ResumenResultadosResponse> resumenResultadosResponses = new ArrayList<>();
-        pruebasEntity.forEach(p -> {
-            var resul = ResumenResultadosResponse.builder();
-            resul.prueba(p.getDescripcionPrueba());
-           iResultadosRepository.getAllByPruebasId(p.getPruebasid()).forEach(resuladosEntity -> {
-               resul.codigo(resuladosEntity.getCodigoId());
-               resul.resultado(resuladosEntity.getResultado());
-           });
-           resumenResultadosResponses.add(resul.build());
-        });
+        return pruebasEntityList.stream()
+                .map(prueba -> {
+                    ResumenResultadosResponse.ResumenResultadosResponseBuilder resul = ResumenResultadosResponse.builder()
+                            .prueba(prueba.getContenido());
 
-        return null;
+                    iResultadosRepository.getAllByPruebasId(prueba.getPruebasid())
+                            .forEach(resultadosEntity -> {
+                                resul.codigo(resultadosEntity.getCodigoId())
+                                        .resultado(resultadosEntity.getResultado());
+                            });
+
+                    return resul.build();
+                })
+                .collect(Collectors.toList());
+
     }
 }
