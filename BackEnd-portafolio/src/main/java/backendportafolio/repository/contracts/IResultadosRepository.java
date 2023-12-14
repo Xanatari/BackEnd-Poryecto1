@@ -10,4 +10,6 @@ import java.util.List;
 public interface IResultadosRepository extends JpaRepository<ResuladosEntity, Long> {
 
     List<ResuladosEntity> getAllByPruebasId(int pruebasId);
+
+
 }

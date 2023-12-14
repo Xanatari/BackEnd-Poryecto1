@@ -1,6 +1,7 @@
 package backendportafolio.service.implementations;
 
 import backendportafolio.dtos.responses.ResultadosResposne;
+import backendportafolio.dtos.responses.ResumenResultadosResponse;
 import backendportafolio.repository.contracts.IPruebasRepository;
 import backendportafolio.repository.contracts.IResultadosRepository;
 import backendportafolio.service.contracts.IResultadosService;
@@ -35,5 +36,24 @@ public class ResultadosService implements IResultadosService {
                 .build()));
 
         return resultadosResposnes;
+    }
+
+    @Override
+    public List<ResumenResultadosResponse> getResumeResultados(int estudianteId) {
+        var pruebasEntity = iPruebasRepository.getByEstudianteId(estudianteId);
+        var resultadosEntity = iResultadosRepository.getAllByPruebasId(pruebasEntity.get(0).getPruebasid());
+
+        List<ResumenResultadosResponse> resumenResultadosResponses = new ArrayList<>();
+        pruebasEntity.forEach(p -> {
+            var resul = ResumenResultadosResponse.builder();
+            resul.prueba(p.getDescripcionPrueba());
+           iResultadosRepository.getAllByPruebasId(p.getPruebasid()).forEach(resuladosEntity -> {
+               resul.codigo(resuladosEntity.getCodigoId());
+               resul.resultado(resuladosEntity.getResultado());
+           });
+           resumenResultadosResponses.add(resul.build());
+        });
+
+        return null;
     }
 }
