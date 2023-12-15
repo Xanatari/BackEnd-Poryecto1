@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 @RestController
@@ -43,11 +44,11 @@ public class DocumentManagmentController implements IDocumentManagmentController
     public ResponseEntity<InputStreamResource> getImagePro9file(@PathVariable int userId) {
 
         var file =documentManageService.getProfileEstudentImage(userId);
-
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", file.getFilename());
-        return new ResponseEntity<>(file, headers, HttpStatus.OK);
+        headers.setContentType(MediaType.APPLICATION_PDF);
+       return ResponseEntity.ok()
+                .headers(headers)
+                .body(new InputStreamResource(new ByteArrayInputStream(file)));
 
     }
 

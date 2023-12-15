@@ -4,7 +4,6 @@ import backendportafolio.integrations.S3DocumentManage;
 import backendportafolio.service.contracts.IDocumentManageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,13 +23,13 @@ public class DocumentManageService implements IDocumentManageService {
     }
 
     @Override
-    public InputStreamResource getProfileEstudentImage(int userId) {
+    public byte[] getProfileEstudentImage(int userId) {
 
-        var file = s3DocumentManage.getFile("tesis-seria-s3","profile-image/", "20201022173043_1.jpg" );
+        var file = s3DocumentManage.getFile("tesis-seria-s3","profile-image/", "HV-v2-ESP.pdf" );
 
-        InputStreamResource inputStreamResource = new InputStreamResource(file);
 
-        return inputStreamResource;
+
+        return file;
     }
 
 

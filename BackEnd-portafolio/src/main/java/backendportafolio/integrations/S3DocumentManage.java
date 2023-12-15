@@ -1,9 +1,7 @@
 package backendportafolio.integrations;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +11,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 @Component
 @Slf4j
@@ -41,7 +38,7 @@ public class S3DocumentManage {
         }
     }
 
-    public InputStream  getFile(String bucketName, String folderDestiny, String fileName){
+    public byte[] getFile(String bucketName, String folderDestiny, String fileName){
 
         String ubi = folderDestiny + fileName;
 
@@ -50,7 +47,7 @@ public class S3DocumentManage {
                 .key(ubi)
                 .bucket(bucketName)
                 .build());
-        return objectBytes.asInputStream();
+        return objectBytes.asByteArray();
 
     }
 
