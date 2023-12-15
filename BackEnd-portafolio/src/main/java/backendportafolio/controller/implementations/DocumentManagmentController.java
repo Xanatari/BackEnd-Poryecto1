@@ -41,7 +41,7 @@ public class DocumentManagmentController implements IDocumentManagmentController
     @GetMapping(value = "/get-profile-image/{userId}")
     @CrossOrigin(origins = "http://localhost:3000")
 
-    public ResponseEntity<InputStreamResource> getImagePro9file(@PathVariable int userId) {
+    public ResponseEntity<InputStreamResource> getImagePro9file(@PathVariable int userId) throws IOException {
 
         var file =documentManageService.getProfileEstudentImage(userId);
         HttpHeaders headers = new HttpHeaders();

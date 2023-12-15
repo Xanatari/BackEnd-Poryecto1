@@ -8,6 +8,6 @@ public interface IDocumentManageService {
 
     void uploadProfileEstudentImage(MultipartFile multipartFile, int userId) throws IOException;
 
-    byte[] getProfileEstudentImage(int userId);
+    byte[] getProfileEstudentImage(int userId) throws IOException;
 
 }
