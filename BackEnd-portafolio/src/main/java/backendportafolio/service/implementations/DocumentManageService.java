@@ -57,21 +57,24 @@ public class DocumentManageService implements IDocumentManageService {
         try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+
             // Agrega contenido a la página según tus necesidades
             String[] lineas = retroAlimentacion(userId).split("\n");
 
             // Establecer la posición inicial
-            float yPosition = 650;
+            float yPosition = 700;
 
             for (String linea : lineas) {
                 // Agregar texto a la página
                 contentStream.beginText();
-                contentStream.newLineAtOffset(50, yPosition);
+                contentStream.newLineAtOffset(25, yPosition);
+
                 contentStream.showText(linea);
+                contentStream.newLine();
                 contentStream.endText();
 
                 // Mover a la siguiente línea
-                yPosition -= 15; // Ajusta según sea necesario
+                yPosition -= 13; // Ajusta según sea necesario
             }
         }
 
