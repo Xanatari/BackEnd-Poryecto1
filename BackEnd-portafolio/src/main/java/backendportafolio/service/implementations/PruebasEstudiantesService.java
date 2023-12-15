@@ -16,6 +16,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -28,7 +31,8 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
 
     @Override
     public PruebasResponse getPruebasEstudiante(int estudianteId, String habilitie, String tech) throws GenericException {
-        log.info("Try to get estudent info for id {}", estudianteId );
+
+       log.info("Try to get estudent info for id {}", estudianteId );
        iEstudiantesRepository.findById(estudianteId).orElseThrow(()->new GenericException("Estudiante no encontrado "));
 
        String response =  chatWithOpenIA.chatWithGTP(getPromtGTP(habilitie, tech));
@@ -37,7 +41,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
 
        PruebasEntity pruebasEntity = new PruebasEntity();
        pruebasEntity.setEstudianteId(estudianteId);
-       pruebasEntity.setContenido(response);
+       pruebasEntity.setContenido(dividirTexto(response,100));
        pruebasEntity.setDescripcionPrueba(resume);
        pruebasEntity.setComplegidad(habilitie);
        pruebasEntity.setEspecialidad(tech);
@@ -50,6 +54,8 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
                 .pruebaId(pruebaEstudiante.getPruebasid())
                 .build();
     }
+
+
 
     @Override
     public ResultEvaluacionResponse setEvaluacionSolucion(int estudianteId, EvaluacionSolucionDTO evaluacionCodigoDTO) throws GenericException {
@@ -65,7 +71,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
 
         resuladosEntity.setPruebasId(evaluacionCodigoDTO.getPrueba());
         resuladosEntity.setCodigoId(evaluacionCodigoDTO.getCodigo());
-        resuladosEntity.setResultado(response);
+        resuladosEntity.setResultado(dividirTexto(response,100));
         resuladosEntity.setComentariosDocente("");
         resuladosEntity.setEspecialidad("");
 
@@ -94,8 +100,6 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
                        .replace("${HABILIDADES}$", habilidad);
 
         return resume;
-
-
     }
 
     private String getPromtToEvaluateSolution(String pregunta , String solucion ){
@@ -103,7 +107,11 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
             + solucion +  "'"+ ", que opinas de la solucion al problema que me planteaste?, puedes decirme el porcentaje de efectividad de la respuesta y que tal es para el mundo real ";
 
         return promptToGTP;
+    }
 
-
+    private static String dividirTexto(String texto, int longitudLinea) {
+        return IntStream.range(0, (int) Math.ceil((double) texto.length() / longitudLinea))
+                .mapToObj(i -> texto.substring(i * longitudLinea, Math.min((i + 1) * longitudLinea, texto.length())))
+                .collect(Collectors.joining("\n"));
     }
 }

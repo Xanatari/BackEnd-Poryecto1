@@ -67,14 +67,12 @@ public class DocumentManageService implements IDocumentManageService {
             for (String linea : lineas) {
                 // Agregar texto a la página
                 contentStream.beginText();
-                contentStream.newLineAtOffset(25, yPosition);
-
                 contentStream.showText(linea);
                 contentStream.newLine();
                 contentStream.endText();
 
                 // Mover a la siguiente línea
-                yPosition -= 13; // Ajusta según sea necesario
+                yPosition -= 13;  // Ajusta según sea necesario
             }
         }
 
