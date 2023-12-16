@@ -41,7 +41,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
 
        PruebasEntity pruebasEntity = new PruebasEntity();
        pruebasEntity.setEstudianteId(estudianteId);
-       pruebasEntity.setContenido(dividirTexto(response,100));
+       pruebasEntity.setContenido(response);
        pruebasEntity.setDescripcionPrueba(resume);
        pruebasEntity.setComplegidad(habilitie);
        pruebasEntity.setEspecialidad(tech);
@@ -71,7 +71,7 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
 
         resuladosEntity.setPruebasId(evaluacionCodigoDTO.getPrueba());
         resuladosEntity.setCodigoId(evaluacionCodigoDTO.getCodigo());
-        resuladosEntity.setResultado(dividirTexto(response,100));
+        resuladosEntity.setResultado(response);
         resuladosEntity.setComentariosDocente("");
         resuladosEntity.setEspecialidad("");
 
@@ -107,11 +107,5 @@ public class PruebasEstudiantesService implements IPruebasEstudiantesService {
             + solucion +  "'"+ ", que opinas de la solucion al problema que me planteaste?, puedes decirme el porcentaje de efectividad de la respuesta y que tal es para el mundo real ";
 
         return promptToGTP;
-    }
-
-    private static String dividirTexto(String texto, int longitudLinea) {
-        return IntStream.range(0, (int) Math.ceil((double) texto.length() / longitudLinea))
-                .mapToObj(i -> texto.substring(i * longitudLinea, Math.min((i + 1) * longitudLinea, texto.length())))
-                .collect(Collectors.joining("\n"));
     }
 }
