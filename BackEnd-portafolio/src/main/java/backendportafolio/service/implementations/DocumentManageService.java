@@ -56,13 +56,15 @@ public class DocumentManageService implements IDocumentManageService {
         for (String linea : lineas) {
 
             XWPFParagraph paragraph = document.createParagraph();
-            paragraph.setAlignment(ParagraphAlignment.BOTH); // Adjust alignment if needed
+            paragraph.setAlignment(ParagraphAlignment.LEFT); // Adjust alignment if needed
             paragraph.setSpacingAfter(24);
 
             XWPFRun run = paragraph.createRun();
             run.setFontSize(12); // Adjust font size if needed
             run.setFontFamily("Calibri"); // Adjust font family if needed
             run.setText(linea);
+            run.addBreak();
+
         }
 
         document.write(outputStream);
@@ -81,14 +83,12 @@ public class DocumentManageService implements IDocumentManageService {
         var resume = getResumeResultados( estudianteId);
         final String[] resumenPDF = {"Buenos dias acontinuacion te dejo un resumen de todas las pruebas y retroalimentacion que has tenido de las pruebas que has echo con la app: \n"};
         resume.forEach(resumenResultadosResponse -> {
-            String prueba = "Prueba : " + resumenResultadosResponse.getPrueba() +"\n"
-                    +"_________________________________________";
-            String codigo = "Solucion que propusiste: " + resumenResultadosResponse.getCodigo() + "\n"
-                    +"_________________________________________";
-
-            String resultado = "Solucion que propusiste: " + resumenResultadosResponse.getResultado() + "\n"
-                    +"_________________________________________";
-
+            String prueba = "####### -------------  PRUEBA    --------------- ####### \n" ;
+            prueba += resumenResultadosResponse.getPrueba();
+            String codigo = "####### -------- SOLUCION QUE PROPUSISTE ------------ ####### \n"  ;
+            codigo +=   resumenResultadosResponse.getCodigo();
+            String resultado = "####### -------- RETRO ALIMNETACION DEL EJERCICIO ------------ ####### \n";
+            resultado +=  resumenResultadosResponse.getResultado();
             resumenPDF[0] += prueba + codigo + resultado;
         });
 
